@@ -1,3 +1,3 @@
-# Smart Chat Reboot
+# Smart Chat Rebot
 
 > 这是一个前后端分离的智能聊天机器人🤖，旨在打造更好、更实用、更快捷的AI助手
