@@ -1,0 +1,23 @@
+{
+  "name": "coze-chat-full",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "@arco-design/web-vue": "^2.55.3",
+    "markdown-it": "^14.1.0",
+    "highlight.js": "^11.9.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0",
+    "sass": "^1.72.0"
+  }
+}
