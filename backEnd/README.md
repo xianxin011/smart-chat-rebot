@@ -1,2 +1,2 @@
-# Smart Chat Reboot
+# Smart Chat Rebot
 
