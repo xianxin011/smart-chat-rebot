@@ -1,16 +1,16 @@
-from langgraph.graph import StateGraph, END, START
-from lang_core.messages import HumanMessage, SystemMessage, AIMessage, AnyMessage
-from typing import TypedDict, Annotated
+from langgraph.graph import StateGraph, END, START,MessagesState
+from langchain.messages import HumanMessage, SystemMessage, AIMessage, AnyMessage
+from typing import TypedDict, Annotated, Sequence
 from langchain_deepseek import ChatDeepSeek
 
-import Operator
+import operator
 
 model = ChatDeepSeek(
     model ="deepseek-v4-flash"
 )
 
-Class ChatAllState:
-    messages: Annotated[Sequence[AnyMessage], Operator.add]
+class ChatAllState(MessagesState):
+    pass
 
 def handle_user_input(state:ChatAllState)->ChatAllState:
     try:
@@ -24,12 +24,13 @@ def handle_user_input(state:ChatAllState)->ChatAllState:
         return END
 def generate_ai_response(state:ChatAllState)->ChatAllState:
     try:
-        recent_history = state.messages[-6:]  # 获取最近的6条消息
+        recent_history = state['messages'][-6:]  # 获取最近的6条消息
         response = model.invoke(recent_history)
         return {
             "messages":[response]
         }
     except Exception as e:
+        print(e)
         return {
             "messages": [AIMessage(content="抱歉，我无法生成响应。")]
         }
@@ -58,7 +59,7 @@ if __name__ == "__main__":
             new_messages = result["messages"][-1]
             if isinstance(new_messages, AIMessage):
                 print(f"AI: {new_messages.content}")
-             elif isinstance(new_messages, HumanMessage):
+            elif isinstance(new_messages, HumanMessage):
                 print(f"用户: {new_messages.content}")
 
             if any(isinstance(msg, AIMessage) and msg.content.lower() == 'exit' for msg in result["messages"]):
