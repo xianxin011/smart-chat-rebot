@@ -1,11 +1,8 @@
 import { ref, computed } from "vue";
 import { v4 as uuidv4 } from "uuid";
-import {
-  sendMessage,
-  regenerateMessage,
-  getSuggestedQuestions,
-} from "../utils/mockApi.js";
+import { sendMessage, regenerateMessage } from "../utils/mockApi.js";
 
+import { getSuggestedQuestions } from "../utils/request.js";
 export function useChat() {
   const messages = ref([]);
   const sessions = ref([]);
@@ -120,7 +117,7 @@ export function useChat() {
             msg.content = streamData.data.content;
             msg.status = streamData.data.isComplete ? "complete" : "streaming";
           }
-        },
+        }
       );
 
       // 更新最终消息
@@ -137,7 +134,7 @@ export function useChat() {
 
       // 更新会话
       const session = sessions.value.find(
-        (s) => s.id === currentSessionId.value,
+        (s) => s.id === currentSessionId.value
       );
       if (session) {
         session.updatedAt = Date.now();
